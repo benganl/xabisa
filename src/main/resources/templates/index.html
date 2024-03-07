@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xabisa - people's commerce</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.1/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/static/css/site.css}">
+</head>
+<body>
+    <th:block th:replace="~{fragments/frag_header}"></th:block>
+    <main class="container-fluid">
+        <div class="bg-body-tertiary p-5 rounded">
+            <div>
+                <th:block th:replace="~{fragments/views/customer_view}"></th:block>
+            </div>
+            <div>
+                <th:block th:replace="~{fragments/views/main_view}"></th:block>
+            </div>
+            <div>
+                <th:block th:replace="~{fragments/views/order_view}"></th:block>
+            </div>
+            <div>
+                <th:block th:replace="~{fragments/views/login_signup_view}"></th:block>
+            </div>
+            <div>
+                <th:block th:replace="~{fragments/views/product_view}"></th:block>
+            </div>
+            <div>
+                <th:block th:replace="~{fragments/views/supplier_view}"></th:block>
+            </div>
+        </div>
+    </main>
+    <th:block th:replace="~{fragments/frag_footer}"></th:block>
+    <script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/font-awesome/6.5.1/js/all.min.js}"></script>
+    <script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>
