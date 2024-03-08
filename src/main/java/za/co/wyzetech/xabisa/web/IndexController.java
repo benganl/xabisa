@@ -12,6 +12,6 @@ public class IndexController {
   @GetMapping
   public String index(Model model) {
     model.addAttribute("fragName", "fragments/customers/index");
-    return "index";
+    return "home";
   }
 }

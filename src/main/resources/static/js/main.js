@@ -1,80 +1,168 @@
-/*!
- * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
- * Copyright 2011-2024 The Bootstrap Authors
- * Licensed under the Creative Commons Attribution 3.0 Unported License.
- */
+(function($) {
+	"use strict"
 
-(() => {
-	'use strict'
+	// Mobile Nav toggle
+	$('.menu-toggle > a').on('click', function (e) {
+		e.preventDefault();
+		$('#responsive-nav').toggleClass('active');
+	})
 
-	const getStoredTheme = () => localStorage.getItem('theme')
-	const setStoredTheme = theme => localStorage.setItem('theme', theme)
+	// Fix cart dropdown from closing
+	$('.cart-dropdown').on('click', function (e) {
+		e.stopPropagation();
+	});
 
-	const getPreferredTheme = () => {
-		const storedTheme = getStoredTheme()
-		if (storedTheme) {
-			return storedTheme
-		}
+	/////////////////////////////////////////
 
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+	// Products Slick
+	$('.products-slick').each(function() {
+		var $this = $(this),
+				$nav = $this.attr('data-nav');
+
+		$this.slick({
+			slidesToShow: 4,
+			slidesToScroll: 1,
+			autoplay: true,
+			infinite: true,
+			speed: 300,
+			dots: false,
+			arrows: true,
+			appendArrows: $nav ? $nav : false,
+			responsive: [{
+	        breakpoint: 991,
+	        settings: {
+	          slidesToShow: 2,
+	          slidesToScroll: 1,
+	        }
+	      },
+	      {
+	        breakpoint: 480,
+	        settings: {
+	          slidesToShow: 1,
+	          slidesToScroll: 1,
+	        }
+	      },
+	    ]
+		});
+	});
+
+	// Products Widget Slick
+	$('.products-widget-slick').each(function() {
+		var $this = $(this),
+				$nav = $this.attr('data-nav');
+
+		$this.slick({
+			infinite: true,
+			autoplay: true,
+			speed: 300,
+			dots: false,
+			arrows: true,
+			appendArrows: $nav ? $nav : false,
+		});
+	});
+
+	/////////////////////////////////////////
+
+	// Product Main img Slick
+	$('#product-main-img').slick({
+    infinite: true,
+    speed: 300,
+    dots: false,
+    arrows: true,
+    fade: true,
+    asNavFor: '#product-imgs',
+  });
+
+	// Product imgs Slick
+  $('#product-imgs').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    centerMode: true,
+    focusOnSelect: true,
+		centerPadding: 0,
+		vertical: true,
+    asNavFor: '#product-main-img',
+		responsive: [{
+        breakpoint: 991,
+        settings: {
+					vertical: false,
+					arrows: false,
+					dots: true,
+        }
+      },
+    ]
+  });
+
+	// Product img zoom
+	var zoomMainProduct = document.getElementById('product-main-img');
+	if (zoomMainProduct) {
+		$('#product-main-img .product-preview').zoom();
 	}
 
-	const setTheme = theme => {
-		if (theme === 'auto') {
-			document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
-		} else {
-			document.documentElement.setAttribute('data-bs-theme', theme)
-		}
-	}
+	/////////////////////////////////////////
 
-	setTheme(getPreferredTheme())
+	// Input number
+	$('.input-number').each(function() {
+		var $this = $(this),
+		$input = $this.find('input[type="number"]'),
+		up = $this.find('.qty-up'),
+		down = $this.find('.qty-down');
 
-	const showActiveTheme = (theme, focus = false) => {
-		const themeSwitcher = document.querySelector('#bd-theme')
-
-		if (!themeSwitcher) {
-			return
-		}
-
-		const themeSwitcherText = document.querySelector('#bd-theme-text')
-		const activeThemeIcon = document.querySelector('.theme-icon-active use')
-		const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
-		const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
-
-		document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
-			element.classList.remove('active')
-			element.setAttribute('aria-pressed', 'false')
+		down.on('click', function () {
+			var value = parseInt($input.val()) - 1;
+			value = value < 1 ? 1 : value;
+			$input.val(value);
+			$input.change();
+			updatePriceSlider($this , value)
 		})
 
-		btnToActive.classList.add('active')
-		btnToActive.setAttribute('aria-pressed', 'true')
-		activeThemeIcon.setAttribute('href', svgOfActiveBtn)
-		const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
-		themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
+		up.on('click', function () {
+			var value = parseInt($input.val()) + 1;
+			$input.val(value);
+			$input.change();
+			updatePriceSlider($this , value)
+		})
+	});
 
-		if (focus) {
-			themeSwitcher.focus()
+	var priceInputMax = document.getElementById('price-max'),
+			priceInputMin = document.getElementById('price-min');
+
+	priceInputMax.addEventListener('change', function(){
+		updatePriceSlider($(this).parent() , this.value)
+	});
+
+	priceInputMin.addEventListener('change', function(){
+		updatePriceSlider($(this).parent() , this.value)
+	});
+
+	function updatePriceSlider(elem , value) {
+		if ( elem.hasClass('price-min') ) {
+			console.log('min')
+			priceSlider.noUiSlider.set([value, null]);
+		} else if ( elem.hasClass('price-max')) {
+			console.log('max')
+			priceSlider.noUiSlider.set([null, value]);
 		}
 	}
 
-	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-		const storedTheme = getStoredTheme()
-		if (storedTheme !== 'light' && storedTheme !== 'dark') {
-			setTheme(getPreferredTheme())
-		}
-	})
+	// Price Slider
+	var priceSlider = document.getElementById('price-slider');
+	if (priceSlider) {
+		noUiSlider.create(priceSlider, {
+			start: [1, 999],
+			connect: true,
+			step: 1,
+			range: {
+				'min': 1,
+				'max': 999
+			}
+		});
 
-	window.addEventListener('DOMContentLoaded', () => {
-		showActiveTheme(getPreferredTheme())
+		priceSlider.noUiSlider.on('update', function( values, handle ) {
+			var value = values[handle];
+			handle ? priceInputMax.value = value : priceInputMin.value = value
+		});
+	}
 
-		document.querySelectorAll('[data-bs-theme-value]')
-			.forEach(toggle => {
-				toggle.addEventListener('click', () => {
-					const theme = toggle.getAttribute('data-bs-theme-value')
-					setStoredTheme(theme)
-					setTheme(theme)
-					showActiveTheme(theme, true)
-				})
-			})
-	})
-})()
+})(jQuery);
