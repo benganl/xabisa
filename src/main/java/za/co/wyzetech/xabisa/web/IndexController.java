@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = {"", "/"})
 public class IndexController {
 
-  @GetMapping
+  @GetMapping(path = {"", "/index"})
   public String index(Model model) {
     model.addAttribute("fragName", "fragments/customers/index");
+    return "index";
+  }
+
+  @GetMapping(path = {"/home"})
+  public String home(Model model) {
     return "home";
   }
 }
