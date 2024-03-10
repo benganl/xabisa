@@ -32,46 +32,14 @@
             <div class="row">
                 <th:block th:replace="~{fragments/frag_left_menu.html}"></th:block>
                 <div class="col-lg-9">
-                    <div class="main__search">
-                        <div class="main__search__form">
-                            <form action="#">
-                                <div class="main__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                        <div class="main__search__phone">
-                            <div class="main__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="main__search__phone__text">
-                                <h5>+27 369 8060</h5>
-                                <span>support 24/7 time</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="main__item set-bg" data-setbg="/static/img/main/banner.png">
-                        <div class="main__text">
-                            <span>Xabisa</span>
-                            <h2>
-                                People's
-                                <br />
-                                Commerce
-                            </h2>
-                            <p>Modern Day Commerce - Simplified</p>
-                            <a href="#" id="btnRegister" class="primary-btn">Register</a>
-                            <a href="#" id="btnLogin" class="primary-btn">Login</a>
-                        </div>
-                    </div>
+                    <!--                     <div th:replace="~{${childContent} :: content}"></div> -->
+                    <div th:replace="~{${childContent}}"></div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Main Section End -->
-    <th:block th:replace="~{fragments/frag_featured_items}"></th:block>
+    <th:block th:if="${diplayFeatures} != null" th:replace="~{fragments/frag_featured_items}"></th:block>
     <th:block th:replace="~{fragments/frag_footer}"></th:block>
     <!-- Js Plugins Begin -->
     <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
