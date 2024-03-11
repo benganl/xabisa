@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.web;
+package za.co.wyzetech.xabisa.modules.shop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = {"/shop"})
 public class ShopController {
   
-  @GetMapping(path = {"", "/"})
-  public String index(Model model) {
-    model.addAttribute("childContent", "shop");
-    return "base";
-  }
+  
 
 }

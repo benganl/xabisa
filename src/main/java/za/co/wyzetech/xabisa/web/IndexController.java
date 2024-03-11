@@ -42,4 +42,29 @@ public class IndexController {
     model.addAttribute("childContent", "login");
     return "base";
   }
+
+  @GetMapping(path = {"/about"})
+  public String about(Model model) {
+    model.addAttribute("childContent", "about");
+    return "base";
+  }
+
+  @GetMapping(path = {"/contact"})
+  public String contact(Model model) {
+    model.addAttribute("childContent", "contact");
+    return "base";
+  }
+
+  @GetMapping(path = {"/shop"})
+  public String shop(Model model) {
+    model.addAttribute("childContent", "shop");
+    return "base";
+  }
+
+  @GetMapping(path = {"/trade"})
+  public String trade(Model model) {
+    model.addAttribute("childContent", "trade");
+    return "base";
+  }
+
 }
