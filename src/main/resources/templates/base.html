@@ -39,7 +39,9 @@
         </div>
     </section>
     <!-- Main Section End -->
-    <th:block th:if="${diplayFeatures} != null" th:replace="~{fragments/frag_featured_items}"></th:block>
+    <th:block th:if="${#ctx.containsVariable('diplayFeatures')}">
+        <th:block th:replace="~{fragments/frag_featured_items}"></th:block>
+    </th:block>
     <th:block th:replace="~{fragments/frag_footer}"></th:block>
     <!-- Js Plugins Begin -->
     <script th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
