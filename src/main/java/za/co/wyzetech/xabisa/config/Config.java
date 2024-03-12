@@ -26,7 +26,7 @@ public class Config implements WebMvcConfigurer {
   SpringResourceTemplateResolver templateResolver(final ApplicationContext appCtx) {
     final var tmplResolver = new SpringResourceTemplateResolver();
     tmplResolver.setApplicationContext(appCtx);
-    tmplResolver.setCacheable(true);
+    tmplResolver.setCacheable(false);
     tmplResolver.setPrefix("classpath:templates/");
     tmplResolver.setSuffix(".html");
     return tmplResolver;
@@ -53,7 +53,7 @@ public class Config implements WebMvcConfigurer {
   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/static/**", "/webjars/**")
         .addResourceLocations("classpath:/static/", "/webjars/")
-        .setCacheControl(CacheControl.maxAge(3600, TimeUnit.SECONDS))
+        .setCacheControl(CacheControl.maxAge(0, TimeUnit.SECONDS))
         .resourceChain(false);
   }
 }

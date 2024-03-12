@@ -8,5 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(path = {"/trade"})
 public class TradeController {
-  
+
+  @GetMapping(path = {"", "/"})
+  public String trade(Model model) {
+    model.addAttribute("childContent", "trade");
+    return "base";
+  }
+
 }

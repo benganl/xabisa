@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.supplier;
+package za.co.wyzetech.xabisa.core.supplier;
 
 import org.springframework.stereotype.Service;
 

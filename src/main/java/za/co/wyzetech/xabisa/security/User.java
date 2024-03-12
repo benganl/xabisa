@@ -11,13 +11,13 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import za.co.wyzetech.xabisa.api.BaseEntity;
+import za.co.wyzetech.xabisa.api.AbstractIdentifiableEntity;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class User extends AbstractIdentifiableEntity {
   private static final long serialVersionUID = -1L;
 
   @Column(name = "username", insertable = true, unique = true)

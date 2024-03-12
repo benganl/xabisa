@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.product;
+package za.co.wyzetech.xabisa.core.product;
 
 import java.util.Set;
 import jakarta.persistence.Column;
@@ -9,15 +9,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import za.co.wyzetech.xabisa.api.NamedBaseEntity;
-import za.co.wyzetech.xabisa.order.Order;
-import za.co.wyzetech.xabisa.supplier.Supplier;
+import za.co.wyzetech.xabisa.api.AbstractNamedEntity;
+import za.co.wyzetech.xabisa.core.order.Order;
+import za.co.wyzetech.xabisa.core.supplier.Supplier;
 
 @Entity
 @Table(name = "products")
 @Getter
 @Setter
-public class Product extends NamedBaseEntity {
+public class Product extends AbstractNamedEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(name = "description")

@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.order;
+package za.co.wyzetech.xabisa.core.order;
 
 import java.util.Set;
 import jakarta.persistence.Entity;
@@ -9,15 +9,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import za.co.wyzetech.xabisa.api.BaseEntity;
-import za.co.wyzetech.xabisa.customer.Customer;
-import za.co.wyzetech.xabisa.product.Product;
+import za.co.wyzetech.xabisa.api.AbstractIdentifiableEntity;
+import za.co.wyzetech.xabisa.core.customer.Customer;
+import za.co.wyzetech.xabisa.core.product.Product;
 
 @Entity
 @Table(name = "orders")
 @Getter
 @Setter
-public class Order extends BaseEntity {
+public class Order extends AbstractIdentifiableEntity {
   private static final long serialVersionUID = 1L;
 
   @ManyToOne

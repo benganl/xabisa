@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.location;
+package za.co.wyzetech.xabisa.core.location;
 
 import org.springframework.stereotype.Service;
 

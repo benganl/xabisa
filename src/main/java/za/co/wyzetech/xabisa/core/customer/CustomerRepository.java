@@ -1,10 +1,10 @@
-package za.co.wyzetech.xabisa.supplier;
+package za.co.wyzetech.xabisa.core.customer;
 
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface SupplierRepository extends JpaRepository<Supplier, UUID> {
+interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
 }

@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(path = {"/shop"})
 public class ShopController {
-  
-  
+
+  @GetMapping(path = {"", "/"})
+  public String shop(Model model) {
+    model.addAttribute("childContent", "shop");
+    return "base";
+  }
 
 }

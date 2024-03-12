@@ -1,17 +1,17 @@
-package za.co.wyzetech.xabisa.customer;
+package za.co.wyzetech.xabisa.core.customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import za.co.wyzetech.xabisa.api.NamedBaseEntity;
+import za.co.wyzetech.xabisa.api.AbstractNamedEntity;
 
 @Entity
 @Table(name = "customers")
 @Getter
 @Setter
-public class Customer extends NamedBaseEntity {
+public class Customer extends AbstractNamedEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(name = "last_name", nullable = true)

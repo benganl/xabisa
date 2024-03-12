@@ -18,7 +18,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class BaseEntity implements Identifiable {
+public abstract class AbstractIdentifiableEntity implements Identifiable {
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -62,9 +62,9 @@ public abstract class BaseEntity implements Identifiable {
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (!(obj instanceof BaseEntity))
+    if (!(obj instanceof AbstractIdentifiableEntity))
       return false;
-    BaseEntity other = (BaseEntity) obj;
+    AbstractIdentifiableEntity other = (AbstractIdentifiableEntity) obj;
     return Objects.equals(id, other.id);
   }
 }

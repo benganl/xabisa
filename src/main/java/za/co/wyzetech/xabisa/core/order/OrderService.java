@@ -1,4 +1,4 @@
-package za.co.wyzetech.xabisa.order;
+package za.co.wyzetech.xabisa.core.order;
 
 import org.springframework.stereotype.Service;
 

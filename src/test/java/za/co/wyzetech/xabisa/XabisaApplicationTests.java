@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.co.wyzetech.xabisa.customer.Customer;
+import za.co.wyzetech.xabisa.core.customer.Customer;
 
 @SpringBootTest
 class XabisaApplicationTests {

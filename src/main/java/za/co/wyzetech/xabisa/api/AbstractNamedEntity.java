@@ -8,7 +8,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class NamedBaseEntity extends BaseEntity implements IdentifiableNamedEntity {
+public abstract class AbstractNamedEntity extends AbstractIdentifiableEntity implements IdentifiableNamedEntity {
   private static final long serialVersionUID = 1L;
 
   @Column(name = "name")
