@@ -22,7 +22,7 @@ public class Order extends AbstractIdentifiableEntity {
 
   @ManyToOne
   @JoinColumn(name = "customer_id")
-  private Customer customer;
+  private Customer user;
 
   @ManyToMany
   @JoinTable(name = "order_products",

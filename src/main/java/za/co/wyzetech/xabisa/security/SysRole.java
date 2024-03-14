@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable {
+public class SysRole implements Serializable {
   private static final long serialVersionUID = -1L;
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

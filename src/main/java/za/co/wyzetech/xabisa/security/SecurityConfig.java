@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,19 +26,19 @@ import jakarta.servlet.http.HttpServletResponse;
 class SecurityConfig {
 
   @Bean
-  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, SecurityService securityService) throws Exception {
+  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, SecurityManager securityDetailService) throws Exception {
     AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-    authenticationManagerBuilder.userDetailsService(securityService) .passwordEncoder(passwordEncoder);
+    authenticationManagerBuilder.userDetailsService(securityDetailService) .passwordEncoder(passwordEncoder);
     return authenticationManagerBuilder.build();
   }
 
   @Bean
   PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    return new BCryptPasswordEncoder(BCryptVersion.$2A, 12);
   }
 
   @Bean
-  SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityService securityService, AuthenticationFilter authenticationFilter) throws Exception {
+  SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityManager securityDetailService, AuthenticationFilter authenticationFilter) throws Exception {
     http.csrf(csrf -> csrf.disable())
     .sessionManagement(sessionManagement -> {
       sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -45,7 +46,7 @@ class SecurityConfig {
     .authorizeHttpRequests(requests -> {
       requests.requestMatchers("/svc/**").authenticated().anyRequest().permitAll();
     })
-    .userDetailsService(securityService)
+    .userDetailsService(securityDetailService)
     .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

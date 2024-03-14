@@ -8,17 +8,17 @@ import com.google.gson.GsonBuilder;
 @Component
 public class JsonUtils {
 
-    private final Gson gson;
+  private final Gson gson;
 
-    protected JsonUtils() {
-        gson = new GsonBuilder().setLenient().serializeNulls().create();
-    }
+  protected JsonUtils() {
+    gson = new GsonBuilder().setLenient().serializeNulls().create();
+  }
 
-    public String toJson(Object object) {
-        return gson.toJson(object);
-    }
+  public String toJson(Object object) {
+    return gson.toJson(object);
+  }
 
-    public <T> T fromJson(String json, Class<T> klass) {
-        return gson.fromJson(json, klass);
-    }
+  public <T> T fromJson(String json, Class<T> klass) {
+    return gson.fromJson(json, klass);
+  }
 }

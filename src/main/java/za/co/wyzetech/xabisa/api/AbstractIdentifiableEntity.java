@@ -22,15 +22,16 @@ public abstract class AbstractIdentifiableEntity implements Identifiable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+  // @GeneratedValue(strategy = GenerationType.UUID, generator = "uuid2")
+  @GeneratedValue(generator = "uuid2")
   protected UUID id;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "created_date")
+  @Column(name = "date_created")
   protected Date createdDate;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "update_date")
+  @Column(name = "date_updated")
   protected Date updateDate;
 
   @PrePersist

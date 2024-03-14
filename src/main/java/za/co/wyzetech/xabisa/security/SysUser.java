@@ -17,7 +17,7 @@ import za.co.wyzetech.xabisa.api.AbstractIdentifiableEntity;
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends AbstractIdentifiableEntity {
+public class SysUser extends AbstractIdentifiableEntity {
   private static final long serialVersionUID = -1L;
 
   @Column(name = "username", insertable = true, unique = true)
@@ -29,5 +29,5 @@ public class User extends AbstractIdentifiableEntity {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", nullable = false),
       inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
-  private Set<Role> roles = new HashSet<>();
+  private Set<SysRole> roles = new HashSet<>();
 }

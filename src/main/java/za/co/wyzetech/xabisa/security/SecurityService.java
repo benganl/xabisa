@@ -1,11 +1,10 @@
 package za.co.wyzetech.xabisa.security;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface SecurityService extends UserDetailsService {
+public interface SecurityService {
 
   String generateToken(String username);
 
@@ -17,7 +16,4 @@ public interface SecurityService extends UserDetailsService {
 
   Authentication authenticate(String username, String password);
 
-  void createUser(String username, String password);
-
-  User findByUsername(String username);
 }
