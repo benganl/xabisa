@@ -11,7 +11,7 @@ spring:
      # driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     open-in-view: false
     # database-platform: org.hibernate.dialect.MariaDBDialect
@@ -19,7 +19,7 @@ spring:
     # database-platform: org.hibernate.dialect.H2Dialect
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
-    enabled: false
+    enabled: true
     show-summary-output: all
   devtools:
     restart:
