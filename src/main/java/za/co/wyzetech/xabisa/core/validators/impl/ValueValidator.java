@@ -27,7 +27,7 @@ public class ValueValidator implements DataValidator<String> {
             .format("Length or value of [%s] is less than the minimum of [%s]", value, maxValue));
       }
 
-      if (value.matches(VALUE_PATTERN)) {
+      if (!isNull && value.matches(VALUE_PATTERN)) {
         validationResult.add(property, String.format("%s does not seem to be a a valid value.", value));
       }
     }

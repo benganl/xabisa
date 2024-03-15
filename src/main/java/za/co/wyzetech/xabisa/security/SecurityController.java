@@ -6,14 +6,17 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 import za.co.wyzetech.xabisa.core.validators.ValidationResult;
+import za.co.wyzetech.xabisa.core.validators.impl.LoginValidator;
 import za.co.wyzetech.xabisa.core.validators.impl.RegistrationValidator;
+import za.co.wyzetech.xabisa.security.dto.LoginDto;
 import za.co.wyzetech.xabisa.security.dto.RegistrationDto;
+import za.co.wyzetech.xabisa.security.exception.SecurityException;
+import za.co.wyzetech.xabisa.security.models.LoginResult;
 import za.co.wyzetech.xabisa.security.models.Registration;
 
 @Slf4j
@@ -22,14 +25,16 @@ import za.co.wyzetech.xabisa.security.models.Registration;
 class SecurityController {
 
   private final RegistrationValidator registrationValidator;
+  private final LoginValidator loginValidator;
   private final SecurityManager securityManager;
   private final ModelMapper modelMapper;
 
-  public SecurityController(RegistrationValidator registrationValidator,
-      SecurityManager securityService, ModelMapper modelMapper) {
+  public SecurityController(SecurityManager securityManager, ModelMapper modelMapper,
+      RegistrationValidator registrationValidator, LoginValidator loginValidator) {
     this.registrationValidator = registrationValidator;
-    this.securityManager = securityService;
+    this.securityManager = securityManager;
     this.modelMapper = modelMapper;
+    this.loginValidator = loginValidator;
   }
 
   @GetMapping(path = {"/register"})
@@ -41,9 +46,8 @@ class SecurityController {
   @PostMapping(path = {"/register"},
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public String registerPost(Model model, @RequestBody RegistrationDto registrationDto) {
-    final List<ValidationResult> validationResults =
-        registrationValidator.validate(registrationDto);
+  public String registerPost(@RequestBody RegistrationDto data) {
+    final List<ValidationResult> validationResults = registrationValidator.validate(data);
     validationResults.forEach((e) -> {
       System.out.println(e);
     });
@@ -53,11 +57,13 @@ class SecurityController {
       log.warn("Validation errors: ", containsValidationErrors);
     } else {
       log.warn("No validation errors");
-      Registration registration = modelMapper.map(registrationDto, Registration.class);
-      securityManager.createUser(registration);
+      Registration registration = modelMapper.map(data, Registration.class);
+      try {
+        securityManager.createUser(registration);
+      } catch (SecurityException e1) {
+        e1.printStackTrace();
+      }
     }
-
-    model.addAttribute("childContent", "login");
     return "base";
   }
 
@@ -71,9 +77,22 @@ class SecurityController {
   @PostMapping(path = {"/login"},
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public String loginPost(Model model, @ModelAttribute RegistrationDto registration) {
-    log.info("Registration::::::: {}", registration.toString());
-    model.addAttribute("childContent", "login");
+  public String loginPost(@RequestBody LoginDto data) { // Changed from @ModelAttri
+    final List<ValidationResult> validationResults = loginValidator.validate(data);
+
+    final var hasValidationErrors = !validationResults.isEmpty();
+    if (hasValidationErrors) {
+      log.info("Failed validation!!!");
+    } else {
+      final String username = data.getUsername();
+      final String password = data.getPassword();
+
+      try {
+        LoginResult authResult = securityManager.login(username, password);
+      } catch (SecurityException e) {
+        e.printStackTrace();
+      }
+    }
     return "base";
   }
 }

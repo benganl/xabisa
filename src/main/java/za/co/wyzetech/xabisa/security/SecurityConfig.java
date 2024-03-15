@@ -26,30 +26,28 @@ import jakarta.servlet.http.HttpServletResponse;
 class SecurityConfig {
 
   @Bean
-  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, SecurityManager securityDetailService) throws Exception {
-    AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-    authenticationManagerBuilder.userDetailsService(securityDetailService) .passwordEncoder(passwordEncoder);
-    return authenticationManagerBuilder.build();
-  }
-
-  @Bean
   PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(BCryptVersion.$2A, 12);
   }
 
   @Bean
-  SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityManager securityDetailService, AuthenticationFilter authenticationFilter) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-    .sessionManagement(sessionManagement -> {
+  SecurityFilterChain securityFilterChain(HttpSecurity http, AuthService authService,
+      AuthenticationFilter authFilter) throws Exception {
+    http.csrf(csrf -> csrf.disable()).sessionManagement(sessionManagement -> {
       sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    })
-    .authorizeHttpRequests(requests -> {
+    }).authorizeHttpRequests(requests -> {
       requests.requestMatchers("/svc/**").authenticated().anyRequest().permitAll();
-    })
-    .userDetailsService(securityDetailService)
-    .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+    }).userDetailsService(authService).addFilterBefore(authFilter,
+        UsernamePasswordAuthenticationFilter.class);
     return http.build();
+  }
+
+  @Bean
+  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder encoder,
+      AuthService authService) throws Exception {
+    var authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+    authenticationManagerBuilder.userDetailsService(authService).passwordEncoder(encoder);
+    return authenticationManagerBuilder.build();
   }
 
   @Bean

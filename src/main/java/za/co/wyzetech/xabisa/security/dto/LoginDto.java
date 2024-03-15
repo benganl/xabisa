@@ -9,14 +9,14 @@ public class LoginDto implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private String username;
-  private String passoword;
+  private String password;
 
   public LoginDto() {}
 
   public LoginDto(String username, String passoword) {
     super();
     this.username = username;
-    this.passoword = passoword;
+    this.password = passoword;
   }
   
   @Override

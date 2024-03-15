@@ -12,13 +12,12 @@ public class PasswordValidator implements DataValidator<String> {
       "(?=^.{12,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&*!()])(?=.*\\W{1,})";
 
   @Override
-  public ValidationResult validate(String property, String password, boolean nullable, int minLength,
-      int maxLength) {
+  public ValidationResult validate(String property, String password, boolean nullable, int minLength, int maxLength) {
     ValidationResult validationResult = new ValidationResult();
     boolean isNullPassword = Objects.isNull(password);
 
     if (isNullPassword && !nullable) {
-      validationResult.add(property, "Password cannot be null.");
+      validationResult.add(property, "Password must be provided!");
     } else {
       int passwordLength = password.length();
 

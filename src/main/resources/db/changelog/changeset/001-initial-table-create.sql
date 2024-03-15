@@ -5,7 +5,7 @@
 --
 -- Table structure for table customers
 --
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE customers (
 --
 -- Table structure for table location
 --
-CREATE TABLE location (
+CREATE TABLE IF NOT EXISTS location (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE location (
 --
 -- Table structure for table orders
 --
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE orders (
 --
 -- Table structure for table order_products
 --
-CREATE TABLE order_products (
+CREATE TABLE IF NOT EXISTS order_products (
   order_id binary(16) NOT NULL,
   product_id binary(16) NOT NULL
 );
@@ -58,7 +58,7 @@ CREATE TABLE order_products (
 --
 -- Table structure for table products
 --
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE products (
 --
 -- Table structure for table roles
 --
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE roles (
 --
 -- Table structure for table suppliers
 --
-CREATE TABLE suppliers (
+CREATE TABLE IF NOT EXISTS suppliers (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE suppliers (
 --
 -- Table structure for table users
 --
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id binary(16) NOT NULL,
   date_created datetime(6) DEFAULT NULL,
   date_updated datetime(6) DEFAULT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE users (
 --
 -- Table structure for table user_roles
 --
-CREATE TABLE user_roles (
+CREATE TABLE IF NOT EXISTS user_roles (
   user_id binary(16) NOT NULL,
   role_id binary(16) NOT NULL
 );
