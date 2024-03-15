@@ -1,7 +1,7 @@
 
 <div class="checkout__form">
     <h4>Register</h4>
-    <form action="#">
+    <form id="frmRegister" method="post" action="#">
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="row">
@@ -11,7 +11,7 @@
                                 Email
                                 <span>*</span>
                             </p>
-                            <input type="text" id="email" />
+                            <input type="text" id="email" name="email" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -20,7 +20,7 @@
                                 Cell / Mobile Number
                                 <span>*</span>
                             </p>
-                            <input type="text" id="mobileNumber">
+                            <input type="text" id="mobileNumber" name="mobileNumber" />
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                                 Fist Name
                                 <span>*</span>
                             </p>
-                            <input type="text" id="firstName">
+                            <input type="text" id="firstName" name="firstName" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -40,7 +40,7 @@
                                 Last Name
                                 <span>*</span>
                             </p>
-                            <input type="text" id="lastName">
+                            <input type="text" id="lastName" name="lastName" />
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                                 Password
                                 <span>*</span>
                             </p>
-                            <input type="password" id="password">
+                            <input type="password" id="password" name="password" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -60,7 +60,7 @@
                                 Confirm Password
                                 <span>*</span>
                             </p>
-                            <input type="password" id="passwordConfirm">
+                            <input type="password" id="passwordConfirm" name="passwordConfirm" />
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                                 Identification type
                                 <span>*</span>
                             </p>
-                            <input type="text" id="idType">
+                            <input type="text" id="idType" name="idType" />
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -80,33 +80,33 @@
                                 Identity Number
                                 <span>*</span>
                             </p>
-                            <input type="text" id="idNumber">
+                            <input type="text" id="idNumber" name="idNumber" />
                         </div>
                     </div>
                 </div>
                 <div class="checkout__input__checkbox">
                     <label for="createCheck">
                         Create an account using the information provided.
-                        <input type="checkbox" id="createCheck">
+                        <input type="checkbox" id="createCheck" name="createCheck" value="true" />
                         <span class="checkmark"></span>
                     </label>
                 </div>
                 <div class="checkout__input__checkbox">
                     <label for="checkTrade">
                         I am interested in a trading account.
-                        <input type="checkbox" id="checkTrade">
+                        <input type="checkbox" id="checkTrade" name="checkTrade" value="true">
                         <span class="checkmark"></span>
                     </label>
                 </div>
                 <div class="checkout__input__checkbox">
                     <label for="privacyCheck">
                         You information will not be shared with anyone.
-                        <input type="checkbox" id="privacyCheck">
+                        <input type="checkbox" id="privacyCheck" name="privacyCheck" value="true" />
                         <span class="checkmark"></span>
                     </label>
                 </div>
                 <div class="checkout__input">
-                    <a href="#" class="primary-btn" id="btnRegister">Register</a>
+                    <button type="submit" class="btn btn-primary" id="btnRegister" name="btnRegister">Register</button>
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,30 +26,28 @@ import jakarta.servlet.http.HttpServletResponse;
 class SecurityConfig {
 
   @Bean
-  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, SecurityService securityService) throws Exception {
-    AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-    authenticationManagerBuilder.userDetailsService(securityService) .passwordEncoder(passwordEncoder);
-    return authenticationManagerBuilder.build();
-  }
-
-  @Bean
   PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    return new BCryptPasswordEncoder(BCryptVersion.$2A, 12);
   }
 
   @Bean
-  SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityService securityService, AuthenticationFilter authenticationFilter) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-    .sessionManagement(sessionManagement -> {
+  SecurityFilterChain securityFilterChain(HttpSecurity http, AuthService authService,
+      AuthenticationFilter authFilter) throws Exception {
+    http.csrf(csrf -> csrf.disable()).sessionManagement(sessionManagement -> {
       sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    })
-    .authorizeHttpRequests(requests -> {
+    }).authorizeHttpRequests(requests -> {
       requests.requestMatchers("/svc/**").authenticated().anyRequest().permitAll();
-    })
-    .userDetailsService(securityService)
-    .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+    }).userDetailsService(authService).addFilterBefore(authFilter,
+        UsernamePasswordAuthenticationFilter.class);
     return http.build();
+  }
+
+  @Bean
+  AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder encoder,
+      AuthService authService) throws Exception {
+    var authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+    authenticationManagerBuilder.userDetailsService(authService).passwordEncoder(encoder);
+    return authenticationManagerBuilder.build();
   }
 
   @Bean

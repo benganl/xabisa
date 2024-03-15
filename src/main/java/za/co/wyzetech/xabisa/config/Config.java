@@ -1,6 +1,7 @@
 package za.co.wyzetech.xabisa.config;
 
 import java.util.concurrent.TimeUnit;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,6 +48,12 @@ public class Config implements WebMvcConfigurer {
     viewResolver.setTemplateEngine(templateEngine);
     viewResolverReg.viewResolver(viewResolver);
     return viewResolver;
+  }
+  
+  @Bean
+  ModelMapper modelMapper() {
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper;
   }
 
   @Override

@@ -4,12 +4,15 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import za.co.wyzetech.xabisa.api.AbstractNamedEntity;
 import za.co.wyzetech.xabisa.core.product.Product;
+import za.co.wyzetech.xabisa.security.SysUser;
 
 @Entity
 @Table(name = "suppliers")
@@ -24,4 +27,8 @@ public class Supplier extends AbstractNamedEntity {
   @OneToMany(mappedBy = "supplier",
       cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   private Set<Product> products;
+
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  private SysUser user;
 }
