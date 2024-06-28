@@ -3,7 +3,6 @@ package za.co.wyzetech.xabisa.security;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,16 +41,13 @@ class DefaultSecurityService implements SecurityService {
   private final AuthenticationManager authManager;
   private final SecurityRepository securityRepository;
   private final JwtUtils jwtUtil;
-  private final Long expiration;
   private final AuthService authService;
 
   public DefaultSecurityService(PasswordEncoder passwordEncoder,
       SecurityRepository securityRepository, JwtUtils jwtUtil,
-      @Value("${wyzecms.security.token.expiration:604800}") Long expiration,
       AuthenticationManager authManager, AuthService authService) {
     this.passwordEncoder = passwordEncoder;
     this.jwtUtil = jwtUtil;
-    this.expiration = expiration;
     this.securityRepository = securityRepository;
     this.authManager = authManager;
     this.authService = authService;
@@ -104,7 +100,6 @@ class DefaultSecurityService implements SecurityService {
     }
     var authToken = new UsernamePasswordAuthenticationToken(username, password);
     authManager.authenticate(authToken);
-    authToken.setAuthenticated(true);
     String jwt = jwtUtil.generateToken(username, roles);
     return new LoginResult(true, roles, jwt);
   }

@@ -15,20 +15,20 @@ public class ValueValidator implements DataValidator<String> {
     final var isNull = Objects.isNull(value);
 
     if (isNull && !nullable) {
-      validationResult.add(property, "The value cannot be null!");
+      validationResult.add(property, String.format("%s cannot be null!!!", property));
     } else {
       if (!isNull && value.length() < minValue) {
         validationResult.add(property, String
-            .format("Length or value of [%s] is less than the minimum of [%s]", value, minValue));
+            .format("[%s] has a value of %s. Must not be less than [%s]", property, value, minValue));
       }
 
       if (!isNull && value.length() > maxValue) {
         validationResult.add(property, String
-            .format("Length or value of [%s] is less than the minimum of [%s]", value, maxValue));
+            .format("[%s] has a value of %s. Must not be more than [%s]", property, value, maxValue));
       }
 
       if (!isNull && value.matches(VALUE_PATTERN)) {
-        validationResult.add(property, String.format("%s does not seem to be a a valid value.", value));
+        validationResult.add(property, String.format("%s does not seem to be a a valid value %s.", property, value));
       }
     }
     return validationResult;

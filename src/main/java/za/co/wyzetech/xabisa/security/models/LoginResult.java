@@ -10,10 +10,10 @@ public class LoginResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private final Set<String> roles = new TreeSet<String>();
-
-  private String username;
-  private String jwt;
   private boolean loggedIn = false;
+  private String username;
+  private String message;
+  private String jwt;
 
   public LoginResult() {}
 

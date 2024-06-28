@@ -38,4 +38,5 @@ logging:
   charset:
     console: UTF-8
   level:
+    root: warn
     za.co.wyzetech: trace

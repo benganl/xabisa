@@ -46,21 +46,22 @@ class DefaultSecurityManager implements SecurityManager {
     }
 
     if (Objects.isNull(mobileNumber)) {
-      throw new SecurityException("Mobile/Cell number must not be empty!",
-          SecurityException.MOBILE_NUMBER_NULL);
+      throw new SecurityException("Mobile/Cell number must not be empty!", SecurityException.MOBILE_NUMBER_NULL);
     }
-    
+
     securityService.createUser(registration);
   }
 
   @Override
   public LoginResult login(final String username, final String password) throws SecurityException {
-    if(Objects.isNull(username)) throw new SecurityException("Username cannot be null!", 1000234);
-    if(Objects.isNull(password)) throw new SecurityException("Password cannot be null!", 1000235);
-    
+    if (Objects.isNull(username))
+      throw new SecurityException("Username cannot be null!", 1000234);
+    if (Objects.isNull(password))
+      throw new SecurityException("Password cannot be null!", 1000235);
+
     final var authResult = authService.login(username, password);
     final var roles = Collections.unmodifiableSet(authResult.getRoles());
-    
+
     return securityService.authenticate(username, password, roles);
   }
 }

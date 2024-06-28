@@ -28,11 +28,11 @@ public class LoginValidator implements ObjectValidator<LoginDto> {
 
     ValidationResult validationResult = new ValidationResult();
 
-    validationResult = valueValidator.validate("username", username, false, 5, 20);
+    validationResult = valueValidator.validate("username", username, false, 4, 20);
     if (validationResult.hasErrors())
       errors.add(validationResult);
 
-    validationResult = passwordValidator.validate("password", password, false, 6, 32);
+    validationResult = passwordValidator.validate("password", password, false, 4, 32);
     if (validationResult.hasErrors())
       errors.add(validationResult);
 

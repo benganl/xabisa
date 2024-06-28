@@ -1,8 +1,12 @@
 package za.co.wyzetech.xabisa.security;
 
+import java.io.Serializable;
 import java.util.List;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +26,9 @@ import za.co.wyzetech.xabisa.security.models.Registration;
 @Slf4j
 @Controller
 @RequestMapping(path = {"/"})
-class SecurityController {
+class SecurityController implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private final RegistrationValidator registrationValidator;
   private final LoginValidator loginValidator;
   private final SecurityManager securityManager;
@@ -74,25 +79,25 @@ class SecurityController {
     return "base";
   }
 
-  @PostMapping(path = {"/login"},
-      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+  @PostMapping(path = {"/login"}, consumes = {MediaType.APPLICATION_JSON_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
-  public String loginPost(@RequestBody LoginDto data) { // Changed from @ModelAttri
-    final List<ValidationResult> validationResults = loginValidator.validate(data);
-
-    final var hasValidationErrors = !validationResults.isEmpty();
-    if (hasValidationErrors) {
-      log.info("Failed validation!!!");
-    } else {
-      final String username = data.getUsername();
-      final String password = data.getPassword();
-
-      try {
-        LoginResult authResult = securityManager.login(username, password);
-      } catch (SecurityException e) {
-        e.printStackTrace();
-      }
+  public ResponseEntity<Object> loginPost(@RequestBody LoginDto loginData) {
+    List<ValidationResult> validationErrors = loginValidator.validate(loginData);
+    if (!validationErrors.isEmpty()) {
+      return ResponseEntity.badRequest()
+          .body(new ApiError(HttpStatus.BAD_REQUEST, "Validation errors", validationErrors));
     }
-    return "base";
+
+    // Login Logic
+    try {
+      LoginResult loginResult =
+          securityManager.login(loginData.getUsername(), loginData.getPassword());
+      return ResponseEntity.ok(loginResult);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    } catch (Exception e) {
+      log.error("Unexpected login error", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
   }
 }

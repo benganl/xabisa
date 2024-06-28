@@ -1,6 +1,8 @@
 package za.co.wyzetech.xabisa.security.utils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -33,11 +35,11 @@ public class JwtUtils {
   }
   
   public String generateToken(String username, Set<String> roles) {
-    LocalDate now = LocalDate.now();
-    LocalDate expiryLocalDate = now.plus(expirationInSeconds, ChronoUnit.SECONDS);
+    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime expiryLocalDate = now.plus(expirationInSeconds, ChronoUnit.SECONDS);
     
-    Date dateNow = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    Date dateExpiry = Date.from(expiryLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    Date dateNow = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+    Date dateExpiry = Date.from(expiryLocalDate.atZone(ZoneId.systemDefault()).toInstant());
 
     Map<String, Object> claims = new HashMap<>();
     claims.put("roles", roles);
