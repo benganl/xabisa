@@ -1,6 +1,6 @@
 # CakePHP 3
 
-/vendor/*
+# /vendor/*
 /config/app.php
 
 /tmp/cache/models/*
@@ -23,3 +23,7 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+
+
+# phpStorm
+.idea/
