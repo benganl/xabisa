@@ -1,4 +1,6 @@
 <?php
+use wyzetech\shabisa\application\user\operation\UserCreateCommand;
+use wyzetech\shabisa\system\context\ExecutionContext;
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);  // Off in production
@@ -55,3 +57,10 @@ phpinfo();
 $db = Database::getInstance('dev', 'dev@c00l!');
 $db->connect();
 $users = $db->query('select * from users');
+
+
+$userCreateCmd = new UserCreateCommand();
+$executionContext = new ExecutionContext();
+
+$executionContext->execute($userCreateCmd);
+

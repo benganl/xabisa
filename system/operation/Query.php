@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace wyzetech\shabisa\system\operation;
 
-abstract class Query
+abstract class Query implements Operation
 {
-    abstract public function query(): QueryResult;
+    abstract public function query(OperationContext $context): QueryResult;
 }
