@@ -46,10 +46,15 @@ class ComposerStaticInitb1c947247f382950e89fe9ad11d349cc
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Psr\\Clock\\' => 10,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
         ),
         'J' => 
         array (
@@ -137,6 +142,10 @@ class ComposerStaticInitb1c947247f382950e89fe9ad11d349cc
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
@@ -152,6 +161,10 @@ class ComposerStaticInitb1c947247f382950e89fe9ad11d349cc
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Jenssegers\\Blade\\' => 
         array (
