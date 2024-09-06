@@ -12,11 +12,7 @@ use wyzetech\shabisa\system\Service;
 
 class UserService extends Service
 {
-    public function __construct()
-    {
-    }
-
-    public function execute()
+    public function execute() : void
     {
         echo '<br />Hello from UserService<br />';
     }

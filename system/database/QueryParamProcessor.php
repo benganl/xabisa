@@ -1,24 +1,46 @@
 <?php
 
-declare(strict_types= 1);
+declare(strict_types=1);
 
 namespace wyzetech\shabisa\system\database;
 
-class QueryParamProcessor {
-    private $params = [];
+use \PDO;
+use \PDOStatement;
 
-    public function __construct(array $params) {
+class QueryParamProcessor
+{
+    private array $params;
+
+    public function __construct(array $params)
+    {
         $this->params = $params;
     }
 
-    public function getParams(): array {
-        return $this->params;
+    public function bindParams(PDOStatement $statement): void
+    {
+        foreach ($this->params as $queryParam) {
+            $name = $queryParam->getName();
+            $value = $queryParam->getValue();
+            $bound = $queryParam->isBoundValue();
+
+            if ($bound) {
+                $statement->bindParam($name, $value, $this->getParamType($value));
+            } else {
+                $statement->bindValue($name, $value, $this->getParamType($value));
+            }
+        }
     }
 
-    public function queryParams() {
-        foreach ($this->params as $key => $value) {
-            $queryParam = new QueryParam($key, $value);
-            $queryParam->set
+    private function getParamType(mixed $value): int
+    {
+        if (is_int($value)) {
+            return PDO::PARAM_INT;
+        } elseif (is_bool($value)) {
+            return PDO::PARAM_BOOL;
+        } elseif (is_null($value)) {
+            return PDO::PARAM_NULL;
+        } else {
+            return PDO::PARAM_STR;
         }
     }
 }
