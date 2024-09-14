@@ -20,11 +20,12 @@ class ComposerStaticInitb1c947247f382950e89fe9ad11d349cc
     );
 
     public static $prefixLengthsPsr4 = array (
-        'w' => 
+        'x' => 
         array (
-            'wyzetech\\shabisa\\system\\' => 24,
-            'wyzetech\\shabisa\\config\\' => 24,
-            'wyzetech\\shabisa\\application\\' => 29,
+            'xabisa\\utils\\' => 13,
+            'xabisa\\sys\\' => 11,
+            'xabisa\\config\\' => 14,
+            'xabisa\\app\\' => 11,
         ),
         'v' => 
         array (
@@ -85,17 +86,21 @@ class ComposerStaticInitb1c947247f382950e89fe9ad11d349cc
     );
 
     public static $prefixDirsPsr4 = array (
-        'wyzetech\\shabisa\\system\\' => 
+        'xabisa\\utils\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/system',
+            0 => __DIR__ . '/../..' . '/utils',
         ),
-        'wyzetech\\shabisa\\config\\' => 
+        'xabisa\\sys\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/sys',
+        ),
+        'xabisa\\config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/config',
         ),
-        'wyzetech\\shabisa\\application\\' => 
+        'xabisa\\app\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/application',
+            0 => __DIR__ . '/../..' . '/app',
         ),
         'voku\\' => 
         array (

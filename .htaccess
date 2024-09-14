@@ -1,6 +1,16 @@
+RewriteEngine On
+
+# Allow access to existing files (CSS, JS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Allow access to .css, .js, .png, .jpg, .jpeg files directly
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg)$ [NC]
+
+# Redirect all other requests to index.php
+RewriteRule ^ index.php [L,QSA]
+
+# Protect .env file from being accessed directly
 <Files .env>
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
-
-

@@ -1,4 +1,6 @@
-<?php $__env->startSection('content'); ?>
+@extends('layout/main')
+
+@section('content')
 
 <div class="p-5 mb-4 bg-body-tertiary rounded-3">
     <div class="container-fluid py-1">
@@ -14,6 +16,4 @@
         <a class="btn btn-primary btn-lg" type="button" href="/user/register">Register</a>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layout/main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/lanton/projects/xabisa/views/index.blade.php ENDPATH**/ ?>
+@endsection

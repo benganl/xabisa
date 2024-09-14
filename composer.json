@@ -5,9 +5,10 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "wyzetech\\shabisa\\config\\": "config/",
-            "wyzetech\\shabisa\\system\\": "system/",
-            "wyzetech\\shabisa\\application\\": "application/"
+            "xabisa\\utils\\": "utils/",
+            "xabisa\\config\\": "config/",
+            "xabisa\\sys\\": "sys/",
+            "xabisa\\app\\": "app/"
         }
     },
     "authors": [

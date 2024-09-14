@@ -6,9 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'wyzetech\\shabisa\\system\\' => array($baseDir . '/system'),
-    'wyzetech\\shabisa\\config\\' => array($baseDir . '/config'),
-    'wyzetech\\shabisa\\application\\' => array($baseDir . '/application'),
+    'xabisa\\utils\\' => array($baseDir . '/utils'),
+    'xabisa\\sys\\' => array($baseDir . '/sys'),
+    'xabisa\\config\\' => array($baseDir . '/config'),
+    'xabisa\\app\\' => array($baseDir . '/app'),
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

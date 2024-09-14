@@ -26,61 +26,22 @@ define('__VIEW_DIR__', $view_dir);
 $view_cache_dir = __CACHE_DIR__ . DIRECTORY_SEPARATOR . "view";
 define('__VIEW_CACHE_DIR__', $view_cache_dir);
 
+
 require_once $vendor_dir . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use Jenssegers\Blade\Blade;
-use wyzetech\shabisa\application\user\operation\UserCreateCommand;
-use wyzetech\shabisa\system\context\ExecutionContext;
-use wyzetech\shabisa\system\database\QueryParam;
-use wyzetech\shabisa\system\service\ServiceProvider;
-use wyzetech\shabisa\application\user\service\UserService;
-use wyzetech\shabisa\system\Database;
 
-$user = new \wyzetech\shabisa\application\user\models\User('0721234567', 'test@email.com', '123456');
-echo '<pre>';
-var_dump($user);
-echo '</pre>';
+use xabisa\sys\RequestBuilder;
+use xabisa\sys\Application;
 
 
-$serviceProvider = ServiceProvider::getInstance();
-
-$executionContext = new ExecutionContext();
-$executionContext->setServiceLocator($serviceProvider);
-
-
-$userService = new UserService();
-$serviceProvider->register('userService', $userService);
-
-$userCreateCmd = new UserCreateCommand();
-$executionContext->execute($userCreateCmd);
-
-echo '<pre>';
-var_dump($serviceProvider);
-echo '</pre>';
-
-$userService = $serviceProvider->find('userService');
-$userService->execute();
-
-// phpinfo();
-
-$db = Database::getInstance('dev', 'dev@c00l!');
-$params = [
-    new QueryParam(':username', 'admin'),
-];
-$users = $db->select('select * from users where username = :username', $params);
-
-echo '<pre>';
-print_r($users);
-echo '</pre>';
+header("Cache-Control: must-revalidate, max-age=31536000, public");
+header("Expires: " . gmdate("D, d M Y H:i:s", time() + 31536000) . " GMT");
+header("text/html; charset=UTF-8");
+header("x-powered-by: WyzeTech Platform 1.0.0");
 
 
-$ffi = FFI::cdef("int Add(int a, int b);", __LIB_DIR__ . DIRECTORY_SEPARATOR . "libmylib.so");
+$rb = new RequestBuilder();
+$request = $rb->build();
 
-$result = $ffi->Add(5, 7);
-
-echo "<br />FFI result: $result <br />";
-
-$ffi = null;
-
-$blade = new Blade($view_dir, $view_cache_dir);
-echo $blade->render("index");
+$application = new Application();
+$application->run($request);
