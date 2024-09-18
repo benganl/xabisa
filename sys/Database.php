@@ -35,12 +35,12 @@ class Database
 
     private function connect(Config $config): void
     {
-        $driver = $config->db['driver'];
-        $host = $config->db['host'];
-        $port = $config->db['port'];
-        $databaseName = $config->db['dbname'];
-        $username = $config->db['username'];
-        $password = $config->db['password'];
+        $driver = $config->get('wyze_db_driver');
+        $host = $config->get('wyze_db_host');
+        $port = $config->get('wyze_db_port');
+        $databaseName = $config->get('wyze_db_name');
+        $username = $config->get('wyze_db_user');
+        $password = $config->get('wyze_db_pass');
 
         if ($this->dbh === null) {
             try {

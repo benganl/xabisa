@@ -8,16 +8,18 @@ use xabisa\sys\Request;
 
 class IndexController extends Controller
 {
-    public function index(?Request $request)
-    {
-        echo 'Hello from controller!!!';
-    }
-
-    public function greet(Request $request): void
+    public function index(): void
     {
         echo '<pre>';
-        var_dump($request);
+        var_dump($this->getRequest());
         echo '</pre>';
-        echo 'Greeting from controller!!!';
+        // echo '<br />Hello from controller!!!<br />';
+        $this->render("index");
+    }
+
+    public function greet(): void
+    {
+        // echo '<br />Greeting from controller!!!<br />';
+        $this->render("greet");
     }
 }

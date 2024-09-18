@@ -31,7 +31,8 @@
     </svg>
 
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+        <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
+            aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
             <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
                 <use href="#circle-half"></use>
             </svg>
@@ -39,7 +40,8 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
             <li>
-                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+                    aria-pressed="false">
                     <svg class="bi me-2 opacity-50" width="1em" height="1em">
                         <use href="#sun-fill"></use>
                     </svg>
@@ -50,7 +52,8 @@
                 </button>
             </li>
             <li>
-                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+                    aria-pressed="false">
                     <svg class="bi me-2 opacity-50" width="1em" height="1em">
                         <use href="#moon-stars-fill"></use>
                     </svg>
@@ -61,7 +64,8 @@
                 </button>
             </li>
             <li>
-                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
+                    aria-pressed="true">
                     <svg class="bi me-2 opacity-50" width="1em" height="1em">
                         <use href="#circle-half"></use>
                     </svg>
@@ -82,5 +86,5 @@
     </main>
     <?php echo $__env->make('layout/footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
-</html>
-<?php /**PATH /home/lanton/projects/xabisa/views/layout/main.blade.php ENDPATH**/ ?>
+
+</html><?php /**PATH /home/lanton/projects/xabisa/views/layout/main.blade.php ENDPATH**/ ?>

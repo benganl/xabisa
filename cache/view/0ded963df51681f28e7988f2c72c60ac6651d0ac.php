@@ -5,5 +5,4 @@
 </footer>
 <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/static/js/htmx.min.js"></script>
-<script type="text/javascript" src="/static/js/site.js"></script>
-<?php /**PATH /home/lanton/projects/xabisa/views/layout/footer.blade.php ENDPATH**/ ?>
+<script type="text/javascript" src="/static/js/site.js"></script><?php /**PATH /home/lanton/projects/xabisa/views/layout/footer.blade.php ENDPATH**/ ?>

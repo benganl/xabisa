@@ -8,14 +8,7 @@ use xabisa\utils\Sanitizer;
 
 class RequestBuilder
 {
-    private ?Request $request = null;
-
-    public function __construct()
-    {
-        $this->request = new Request();
-    }
-
-    public function build(): Request
+    public static function build(): Request
     {
         $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $segments = explode('/', $uri);
@@ -25,7 +18,7 @@ class RequestBuilder
         $methodName = 'index';
         $params = [];
 
-        $requestType = $this->getRequestType();
+        $requestType = self::getRequestType();
 
         if (!empty($segments[0])) {
             $module = strtolower($segments[0]);
@@ -53,24 +46,25 @@ class RequestBuilder
 
         $controllerClass = "xabisa\\app\\$module\\controller\\$controllerName";
 
-        $this->request->controller = $controllerClass;
-        $this->request->method = $methodName;
-        $this->request->module = $module;
-        $this->request->params = $params;
-        $this->request->isPost = ('post' === $requestType || 'form-urlencoded' === $requestType) ? true : false;
-
+        $request = new Request();
+        $request->controller = $controllerClass;
+        $request->method = $methodName;
+        $request->module = $module;
+        $request->params = $params;
+        $request->isPost = ('post' === $requestType || 'form-urlencoded' === $requestType) ? true : false;
+        
         foreach ($_SERVER as $key => $value) {
-            $this->request->$key = $value;
+            $request->$key = $value;
         }
 
         foreach ($_REQUEST as $key => $value) {
-            $this->request->$key = $value;
+            $request->$key = $value;
         }
 
-        return $this->request;
+        return $request;
     }
 
-    private function getRequestType(): string
+    private static function getRequestType(): string
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'] ?? '';
         $body = null;

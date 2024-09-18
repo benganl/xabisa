@@ -1,25 +1,58 @@
 <?php
 
-declare(strict_types= 1);
+declare(strict_types=1);
 
 namespace xabisa\sys;
+use Dotenv\Dotenv;
 
-class Config
+final class Config
 {
     private array $data;
+    private static ?self $instance = null;
 
-    public function __construct()
+    public static function getInstance(): self
     {
-        $this->data = [];
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
-    public function __set($name, $value) {
+    private function __construct()
+    {
+        Dotenv::createImmutable(__CONFIG_DIR__)->load();
+        $this->data = [];
+        $this->init();
+    }
+
+    public function __set($name, $value): void
+    {
         $name = strtolower(trim($name));
         $this->data[$name] = $value;
     }
 
-    public function __get($name) {
+    public function __get($name): ?string
+    {
         $name = strtolower(trim($name));
         return $this->data[$name] ?? null;
+    }
+
+    public function get(string $key): ?string
+    {
+        $key = strtolower(trim($key));
+        return $this->data[$key] ?? null;
+    }
+
+    public function set(string $key, string $value): void
+    {
+        $key = strtolower(trim($key));
+        $this->data[$key] = $value;
+    }
+
+    public function init(): void
+    {
+        foreach ($_ENV as $key => $value) {
+            $this->set($key, $value);
+        }
     }
 }

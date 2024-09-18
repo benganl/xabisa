@@ -7,18 +7,18 @@ namespace xabisa\sys;
 class ControllerHandler
 {
     private ExecutionContext $context;
-    private Request $request;
 
-    public function __construct(ExecutionContext $context, Request $request)
+    public function __construct(ExecutionContext $context)
     {
         $this->context = $context;
-        $this->request = $request;
     }
 
     public function handle(Controller $controllerObj): void
     {
-        $method = $this->request->method;
-        
-        call_user_func([$controllerObj, $method], $this->request);
+        echo '<pre> Execute Start </pre>';
+        $method = $controllerObj->getMethod();
+        $request = $controllerObj->getRequest();
+        call_user_func([$controllerObj, $method], $request);
+        echo '<pre> Execute End </pre>';
     }
 }
